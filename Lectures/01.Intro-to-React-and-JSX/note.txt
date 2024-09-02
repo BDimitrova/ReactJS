@@ -1,0 +1,9 @@
+Introduction to ReactJS - What is React, JSX, Overview and Syntax
+
+-> Intro
+react - js framework - single page
+help for building user interface
+both client and server
+
+-> JSX Syntax
+template engine

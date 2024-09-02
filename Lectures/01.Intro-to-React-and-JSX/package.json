@@ -1,15 +1,15 @@
 {
-  "name": "02.components-basic-idea",
+  "name": "01.intro-to-react-and-jsx",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "npx babel --watch src --out-dir ./build  --presets react-app/prod"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {
+  "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-preset-react-app": "^3.1.2"
   }
