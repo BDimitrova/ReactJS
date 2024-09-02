@@ -4,9 +4,11 @@ const rootHtmlElement = document.getElementById('root');
 // Initialize root react element
 const rootReactElement = ReactDOM.createRoot(rootHtmlElement);
 
-// Create basic react element
-const headingReactElement = React.createElement('h1', null, 'Hello JSX from React!');
+const headingReactSectionElement = (
+    <header className="react-section">
+        <h1>Hello JSX from React!</h1>
+        <h2>JSX is awesome!</h2>
+    </header>
+)
 
-
-//Render content
-rootReactElement.render(headingReactElement);
+rootReactElement.render(headingReactSectionElement);
