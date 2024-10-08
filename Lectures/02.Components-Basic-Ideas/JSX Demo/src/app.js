@@ -59,5 +59,5 @@ const siteContent = (
     </div>
 )
 
-// Render content
+// Render content (only one react element)
 rootReactElement.render(siteContent);

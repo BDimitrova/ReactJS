@@ -50,5 +50,5 @@ var siteContent = React.createElement(
     React.createElement(Main, { title: 'Best Movies:' })
 );
 
-// Render content
+// Render content (only one react element)
 rootReactElement.render(siteContent);
