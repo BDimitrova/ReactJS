@@ -1,6 +1,6 @@
 import UserListItem from "./user-list-item/UserListItem";
 
-export default function UserList() {
+export default function UserList({ users }) {
     return (
         <div className="table-wrapper">
             <table className="table">
@@ -101,7 +101,15 @@ export default function UserList() {
                     </tr>
                 </thead>
                 <tbody>
-                    <UserListItem/>
+                    {users.map((user) => (
+                        <UserListItem key={user._id}
+                            firstName={user.firstName}
+                            lastName={user.lastName}
+                            email={user.email}
+                            phoneNumber={user.phoneNumber}
+                            imageUrl={user.imageUrl}
+                            created={user.createdAt} />
+                    ))}
                 </tbody>
             </table>
         </div>

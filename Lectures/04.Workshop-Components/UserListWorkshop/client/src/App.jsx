@@ -1,5 +1,5 @@
 import Header from "./components/header/Header";
-import UserSection from "./components/user-section/UserSection";
+import UserSection from "./components/user-section/UserSectionk";
 import Footer from "./components/footer/Footer";
 import "./index.css";
 
