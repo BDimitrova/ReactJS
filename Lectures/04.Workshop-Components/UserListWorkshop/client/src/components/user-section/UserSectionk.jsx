@@ -4,14 +4,16 @@ import PaginationComponent from "../pagination/PaginationComponent";
 import { useState, useEffect } from "react";
 import UserAdd from "./user-add/UserAdd";
 import UserDetails from "./user-details/UserDetails";
+import UserDelete from "./user-delete/UserDelete";
 
 const baseUrl = "http://localhost:3030/jsonstore";
 
 export default function UserSection(props) {
     const [users, setUsers] = useState([]);
     const [showAddUser, setShowAddUser] = useState(false);
-    const [closeDetails, setCloseDetails] = useState(false);
     const [showUserDetailsById, setShowUserDetailsById] = useState(null);
+    const [showUserDeleteById, setShowUserDeleteById] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         (async function getUsers() {
@@ -22,6 +24,8 @@ export default function UserSection(props) {
                 setUsers(users);
             } catch (error) {
                 alert(error.message);
+            } finally {
+                setIsLoading(false);
             }
         })();
     }, []);
@@ -34,9 +38,20 @@ export default function UserSection(props) {
         setShowAddUser(false);
     };
 
+    const showUserInfoClickHandler = (userId) => {
+        setShowUserDetailsById(userId);
+    };
+
+    const userDeleteClickHandler = (userId) => {
+        setShowUserDeleteById(userId);
+    };
+
     const addUserSaveHandler = async (e) => {
         //prevent refresh
         e.preventDefault();
+
+        //start spinner
+        // setIsLoading(true);
 
         //get user data
         const formData = new FormData(e.currentTarget);
@@ -62,19 +77,34 @@ export default function UserSection(props) {
 
         //close modal
         setShowAddUser(false);
+
+        //stop spinner
+        // setIsLoading(false);
     };
 
-    const showUserInfoClickHandler = (userId) => {
-        setShowUserDetailsById(userId);
+    const userDeleteHandler = async (userId) => {
+
+        //delete request server
+        await fetch(`${baseUrl}/users`, {
+            method: "DELETE",
+        });
+
+        //delete from local state
+        setUsers((oldUsers) => oldUsers.filter((user) => user._id !== userId));
+
+        //close modal
+        setShowUserDeleteById(null);
     };
-    
+
     return (
         <section className="card users-container">
             <Search />
 
             <UserList
                 users={users}
+                isLoading={isLoading}
                 onUserDetailsClick={showUserInfoClickHandler}
+                onUserDeleteClick={userDeleteClickHandler}
             />
 
             {showAddUser && (
@@ -91,6 +121,13 @@ export default function UserSection(props) {
                     user={users.find(
                         (user) => user._id === showUserDetailsById
                     )}
+                />
+            )}
+
+            {showUserDeleteById && (
+                <UserDelete
+                    onClose={() => setShowUserDeleteById(null)}
+                    onUserDelete={() => userDeleteHandler(showUserDeleteById)}
                 />
             )}
 

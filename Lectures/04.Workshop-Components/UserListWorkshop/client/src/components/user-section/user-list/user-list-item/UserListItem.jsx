@@ -2,7 +2,8 @@ import { formatData } from "../../../../utils/dataUtils";
 
 export default function UserListItem({
     user,
-    onUserDetailsClick
+    onUserDetailsClick,
+    onUserDeleteClick
 }) {
     return (
         <tr>
@@ -37,7 +38,7 @@ export default function UserListItem({
                         ></path>
                     </svg>
                 </button>
-                <button className="btn delete-btn" title="Delete">
+                <button className="btn delete-btn" title="Delete" onClick={() => onUserDeleteClick(user._id)}>
                     <svg
                         aria-hidden="true"
                         focusable="false"

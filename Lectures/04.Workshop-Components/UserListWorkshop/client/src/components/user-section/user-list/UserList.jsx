@@ -1,8 +1,17 @@
+import Spinner from "../../spinner/Spinner";
 import UserListItem from "./user-list-item/UserListItem";
 
-export default function UserList({ users, onUserDetailsClick, onClose }) {
+export default function UserList({
+    users,
+    onUserDetailsClick,
+    onClose,
+    onUserDeleteClick,
+    isLoading
+}) {
     return (
         <div className="table-wrapper">
+            {isLoading && <Spinner />}
+
             <table className="table">
                 <thead>
                     <tr>
@@ -107,6 +116,7 @@ export default function UserList({ users, onUserDetailsClick, onClose }) {
                             user={user}
                             onUserDetailsClick={onUserDetailsClick}
                             addUserCloseHandler={onClose}
+                            onUserDeleteClick={onUserDeleteClick}
                         />
                     ))}
                 </tbody>
