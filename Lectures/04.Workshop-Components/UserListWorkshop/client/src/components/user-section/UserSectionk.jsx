@@ -3,12 +3,15 @@ import UserList from "./user-list/UserList";
 import PaginationComponent from "../pagination/PaginationComponent";
 import { useState, useEffect } from "react";
 import UserAdd from "./user-add/UserAdd";
+import UserDetails from "./user-details/UserDetails";
 
 const baseUrl = "http://localhost:3030/jsonstore";
 
 export default function UserSection(props) {
     const [users, setUsers] = useState([]);
     const [showAddUser, setShowAddUser] = useState(false);
+    const [closeDetails, setCloseDetails] = useState(false);
+    const [showUserDetailsById, setShowUserDetailsById] = useState(null);
 
     useEffect(() => {
         (async function getUsers() {
@@ -33,7 +36,7 @@ export default function UserSection(props) {
 
     const addUserSaveHandler = async (e) => {
         //prevent refresh
-        e.preventDefault()
+        e.preventDefault();
 
         //get user data
         const formData = new FormData(e.currentTarget);
@@ -41,36 +44,53 @@ export default function UserSection(props) {
             ...Object.fromEntries(formData),
             createdAt: new Date().toISOString(),
             updateddAt: new Date().toISOString(),
-        }    
+        };
 
         //post request
         const response = await fetch(`${baseUrl}/users`, {
-            method: 'POST',
+            method: "POST",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
             },
-            body: JSON.stringify(userData)
+            body: JSON.stringify(userData),
         });
 
         const addUser = await response.json();
-        
+
         //update local state
-        setUsers(oldUsers => [ ...oldUsers, addUser])
+        setUsers((oldUsers) => [...oldUsers, addUser]);
 
         //close modal
         setShowAddUser(false);
     };
 
+    const showUserInfoClickHandler = (userId) => {
+        setShowUserDetailsById(userId);
+    };
+    
     return (
         <section className="card users-container">
             <Search />
 
-            <UserList users={users} />
+            <UserList
+                users={users}
+                onUserDetailsClick={showUserInfoClickHandler}
+            />
 
             {showAddUser && (
                 <UserAdd
                     onClose={addUserCloseHandler}
                     onSave={addUserSaveHandler}
+                />
+            )}
+
+            {showUserDetailsById && (
+                <UserDetails
+                    onClick={showUserInfoClickHandler}
+                    onClose={() => setShowUserDetailsById(null)}
+                    user={users.find(
+                        (user) => user._id === showUserDetailsById
+                    )}
                 />
             )}
 

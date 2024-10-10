@@ -1,27 +1,23 @@
 import { formatData } from "../../../../utils/dataUtils";
 
 export default function UserListItem({
-    firstName,
-    lastName,
-    email,
-    phoneNumber,
-    imageUrl,
-    created
+    user,
+    onUserDetailsClick
 }) {
     return (
         <tr>
             <td>
                 <img
-                    src={`${imageUrl}`}
-                    alt={`${firstName}'s profile`}
+                    src={`${user.imageUrl}`}
+                    alt={`${user.firstName}'s profile`}
                     className="image"
                 />
             </td>
-            <td>{firstName}</td>
-            <td>{lastName}</td>
-            <td>{email}</td>
-            <td>{phoneNumber}</td>
-            <td>{formatData(created)}</td>
+            <td>{user.firstName}</td>
+            <td>{user.lastName}</td>
+            <td>{user.email}</td>
+            <td>{user.phoneNumber}</td>
+            <td>{formatData(user.createdAt)}</td>
 
             <td className="actions">
                 <button className="btn edit-btn" title="Edit">
@@ -58,7 +54,7 @@ export default function UserListItem({
                         ></path>
                     </svg>
                 </button>
-                <button className="btn info-btn" title="Info">
+                <button className="btn info-btn" title="Info" onClick={() => onUserDetailsClick(user._id)}>
                     <svg
                         aria-hidden="true"
                         focusable="false"
@@ -79,4 +75,3 @@ export default function UserListItem({
         </tr>
     );
 }
-
