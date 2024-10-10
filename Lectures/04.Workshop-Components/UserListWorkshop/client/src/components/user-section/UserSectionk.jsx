@@ -29,7 +29,37 @@ export default function UserSection(props) {
 
     const addUserCloseHandler = () => {
         setShowAddUser(false);
-    }
+    };
+
+    const addUserSaveHandler = async (e) => {
+        //prevent refresh
+        e.preventDefault()
+
+        //get user data
+        const formData = new FormData(e.currentTarget);
+        const userData = {
+            ...Object.fromEntries(formData),
+            createdAt: new Date().toISOString(),
+            updateddAt: new Date().toISOString(),
+        }    
+
+        //post request
+        const response = await fetch(`${baseUrl}/users`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(userData)
+        });
+
+        const addUser = await response.json();
+        
+        //update local state
+        setUsers(oldUsers => [ ...oldUsers, addUser])
+
+        //close modal
+        setShowAddUser(false);
+    };
 
     return (
         <section className="card users-container">
@@ -37,7 +67,12 @@ export default function UserSection(props) {
 
             <UserList users={users} />
 
-            {showAddUser && <UserAdd onClose={addUserCloseHandler}/>}
+            {showAddUser && (
+                <UserAdd
+                    onClose={addUserCloseHandler}
+                    onSave={addUserSaveHandler}
+                />
+            )}
 
             <button className="btn-add btn" onClick={addUserClickHandler}>
                 Add new user
