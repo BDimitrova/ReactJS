@@ -1,5 +1,5 @@
 import Header from "./components/header/Header";
-import UserList from "./components/user-list/UserList";
+import UserSection from "./components/user-section/UserSection";
 import Footer from "./components/footer/Footer";
 import "./index.css";
 
@@ -8,7 +8,7 @@ function App() {
         <>
             <Header />
                 <main className="main">
-                    <UserList/>
+                    <UserSection/>
                 </main>
             <Footer />
         </>
