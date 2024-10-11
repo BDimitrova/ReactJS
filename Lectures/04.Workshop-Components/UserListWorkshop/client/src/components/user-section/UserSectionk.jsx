@@ -15,6 +15,9 @@ export default function UserSection(props) {
     const [showUserDeleteById, setShowUserDeleteById] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
 
+    const [searchInput, setSearchInput] = useState("");
+    const [filteredData, setFilteredData] = useState(users);
+
     useEffect(() => {
         (async function getUsers() {
             try {
@@ -83,7 +86,6 @@ export default function UserSection(props) {
     };
 
     const userDeleteHandler = async (userId) => {
-
         //delete request server
         await fetch(`${baseUrl}/users`, {
             method: "DELETE",
@@ -96,9 +98,37 @@ export default function UserSection(props) {
         setShowUserDeleteById(null);
     };
 
+    const SearchHandler = async (e) => {
+        e.preventDefault();
+
+        const formData = new FormData(e.currentTarget);
+        const filtered = Object.fromEntries(formData);
+
+        const searchValue = filtered.search;
+        const criteria = filtered.criteria;
+        
+        try {
+            const response = await fetch(`${baseUrl}/users`);
+            const result = await response.json();
+            const users = Object.values(result);
+            const matched = users.filter((user) =>
+                user.firstName.toLowerCase().includes(searchValue)
+            );
+            console.log(matched);
+            
+            setFilteredData(matched);
+        } catch (error) {
+            alert(error.message);
+        } finally {
+            setIsLoading(false);
+        }
+
+
+    };
+
     return (
         <section className="card users-container">
-            <Search />
+            <Search onSearch={SearchHandler} />
 
             <UserList
                 users={users}

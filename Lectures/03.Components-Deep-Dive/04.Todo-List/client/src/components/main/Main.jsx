@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import TodoItem from "./TodoItems";
+import TodoItems from "./todo-items/TodoItems";
 
 export default function Main() {
     const [todos, setTodos] = useState([]);
@@ -9,7 +9,7 @@ export default function Main() {
         fetch(`http://localhost:3030/jsonstore/todos`)
             .then((response) => response.json())
             .then((data) => {
-                setTodos(Object.values(data));
+                setTodos(Object.values(data));                
             })
             .catch((err) => console.log(err));
     }, []);
@@ -34,7 +34,7 @@ export default function Main() {
                 </div>
 
                 <div className="table-wrapper">
-                    <table>
+                    <table className="table">
                         <thead>
                             <tr>
                                 <th className="table-header-task">Task</th>
@@ -44,15 +44,16 @@ export default function Main() {
                         </thead>
 
                         <tbody>
-                            {todos.map((todo) => {
-                                <TodoItem
+                            {todos.map((todo) => (
+                                
+                                <TodoItems
                                     key={todo._id}
                                     _id={todo._id}
                                     text={todo.text}
                                     isCompleted={todo.isCompleted}
                                     changeStatusHandler={changeStatusHandler}
-                                />;
-                            })}
+                                />
+                            ))}
                         </tbody>
                     </table>
                 </div>

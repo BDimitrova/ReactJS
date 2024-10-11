@@ -1,6 +1,6 @@
-export default function Search() {
+export default function Search({onSearch}) {
     return (
-        <form className="search-form">
+        <form className="search-form" onSubmit={onSearch}>
             <h2>
                 <svg
                     aria-hidden="true"
@@ -41,11 +41,11 @@ export default function Search() {
             <div className="filter">
                 <span>Search Criteria:</span>
                 <select name="criteria" className="criteria">
-                    <option value="">Not selected</option>
-                    <option value="">First Name</option>
-                    <option value="">Last Name</option>
-                    <option value="">Email</option>
-                    <option value="">Phone</option>
+                    <option value="1">Not selected</option>
+                    <option value="2">First Name</option>
+                    <option value="3">Last Name</option>
+                    <option value="4">Email</option>
+                    <option value="5">Phone</option>
                 </select>
             </div>
         </form>
