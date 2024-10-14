@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 export default function ControlledForm() {
     const [username, setUsername] = useState("");
@@ -13,6 +13,12 @@ export default function ControlledForm() {
         genre: "Female",
         sports: "",
     });
+
+    const inputRef = useRef();
+
+    useEffect(() => {
+        inputRef.current.focus();
+    }, [])
 
     useEffect(() => {
         (async () => {
@@ -56,6 +62,7 @@ export default function ControlledForm() {
                     <label htmlFor="username">Username:</label>
                     <input
                         type="text"
+                        ref={inputRef}
                         name="username"
                         id="usename"
                         placeholder="John"
