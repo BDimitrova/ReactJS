@@ -7,7 +7,11 @@ export default function ControlledForm() {
         username: "",
         password: "",
         email: "",
-        age: ""
+        age: "",
+        bio: "",
+        occupation: "ai",
+        genre: "Female",
+        sports: "",
     });
 
     useEffect(() => {
@@ -31,7 +35,16 @@ export default function ControlledForm() {
     // };
 
     const changeValues = (e) => {
-        setFormValues(oldValues => ({...oldValues, [e.target.name]: e.target.value}));
+        console.log(e.target.name);
+        console.log(e.target.checked);
+
+        setFormValues((oldValues) => ({
+            ...oldValues,
+            [e.target.name]:
+                e.target.type === "checkbox"
+                    ? e.target.checked
+                    : e.target.value,
+        }));
     };
 
     return (
@@ -75,7 +88,6 @@ export default function ControlledForm() {
                     />
                 </div>
 
-
                 <div>
                     <label htmlFor="age">Email:</label>
                     <input
@@ -84,6 +96,82 @@ export default function ControlledForm() {
                         id="age"
                         placeholder="20"
                         value={formValues.age}
+                        onChange={changeValues}
+                    />
+                </div>
+
+                <div>
+                    <label htmlFor="bio">Bio:</label>
+                    <textarea
+                        name="bio"
+                        id="bio"
+                        value={formValues.bio}
+                        onChange={changeValues}
+                    />
+                </div>
+
+                <div>
+                    <label htmlFor="occupation">Occupation:</label>
+                    <select
+                        name="occupation"
+                        id="occupation"
+                        value={formValues.occupation}
+                        onChange={changeValues}
+                    >
+                        <option value="it">IT</option>
+                        <option value="bi">BI</option>
+                        <option value="ai">AI</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label htmlFor="genre">Female:</label>
+                    <input
+                        type="radio"
+                        name="genre"
+                        id="genre-f"
+                        value="Female"
+                        checked={formValues.genre === "Female"}
+                        onChange={changeValues}
+                    />
+
+                    <label htmlFor="genre">Male:</label>
+                    <input
+                        type="radio"
+                        name="genre"
+                        id="genre-m"
+                        value="Male"
+                        checked={formValues.genre === "Male"}
+                        onChange={changeValues}
+                    />
+
+                    <label htmlFor="genre">Other:</label>
+                    <input
+                        type="radio"
+                        name="genre"
+                        id="genre-o"
+                        value="Ohter"
+                        checked={formValues.genre === "Other"}
+                        onChange={changeValues}
+                    />
+                </div>
+
+                <div>
+                    <label htmlFor="swimming">Swimming:</label>
+                    <input
+                        type="checkbox"
+                        name="swimming"
+                        id="fitness"
+                        value={formValues.fitness}
+                        onChange={changeValues}
+                    />
+
+                    <label htmlFor="fitness">Fitness:</label>
+                    <input
+                        type="checkbox"
+                        name="fitness"
+                        id="fitness"
+                        value={formValues.fitness}
                         onChange={changeValues}
                     />
                 </div>
