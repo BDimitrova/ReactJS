@@ -8,7 +8,7 @@ const people = [
     // More people...
   ]
   
-  export default function About() {
+  export default function Project() {
     return (
       <div className="bg-white py-24 sm:py-32">
         <div className="mx-auto grid max-w-7xl gap-x-8 gap-y-20 px-6 lg:px-8 xl:grid-cols-3">

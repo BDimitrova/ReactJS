@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Dialog, DialogPanel } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 
-import {Link, NavLink} from "react-router-dom"
+import { Link, NavLink } from "react-router-dom";
 
 export default function Header() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -37,26 +37,54 @@ export default function Header() {
                 <div className="hidden lg:flex lg:gap-x-12">
                     <NavLink
                         to="/"
-                        className={({isActive}) => `text-sm font-semibold leading-6 text-gray-900 ${isActive ? 'underline' : ''}`}
+                        className={({ isActive }) =>
+                            `text-sm font-semibold leading-6 text-gray-900 ${
+                                isActive ? "underline" : ""
+                            }`
+                        }
                         // style={({isActive}) => isActive ? {color: 'red'} : {}}
-
                     >
                         Home
                     </NavLink>
                     <NavLink
-                        to="/about"
-                        className={({isActive}) => `text-sm font-semibold leading-6 text-gray-900 ${isActive ? 'underline' : ''}`}
-                        // style={({isActive}) => isActive ? {color: 'red'} : {}}
-
+                        to="/project"
+                        className={({ isActive }) =>
+                            `text-sm font-semibold leading-6 text-gray-900 ${
+                                isActive ? "underline" : ""
+                            }`
+                        }
                     >
-                        About
+                        Our Project
                     </NavLink>
                     <NavLink
                         to="/pricing"
-                        className={({isActive}) => `text-sm font-semibold leading-6 text-gray-900 ${isActive ? 'underline' : ''}`}
-                        // style={({isActive}) => isActive ? {color: 'red'} : {}}
+                        className={({ isActive }) =>
+                            `text-sm font-semibold leading-6 text-gray-900 ${
+                                isActive ? "underline" : ""
+                            }`
+                        }
                     >
                         Pricing
+                    </NavLink>
+                    <NavLink
+                        to="/about"
+                        className={({ isActive }) =>
+                            `text-sm font-semibold leading-6 text-gray-900 ${
+                                isActive ? "underline" : ""
+                            }`
+                        }
+                    >
+                        About Us
+                    </NavLink>
+                    <NavLink
+                        to="/articles"
+                        className={({ isActive }) =>
+                            `text-sm font-semibold leading-6 text-gray-900 ${
+                                isActive ? "underline" : ""
+                            }`
+                        }
+                    >
+                        Articles
                     </NavLink>
                 </div>
                 <div className="hidden lg:flex lg:flex-1 lg:justify-end">
