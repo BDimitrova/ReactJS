@@ -5,13 +5,22 @@ export default function Articles() {
     const [articles, setArticles] = useState([]);
 
     useEffect(() => {
+        const abortController = new AbortController();
+
         (async () => {
             const response = await fetch(
-                "http://localhost:3030/jsonstore/advanced/articles/list/"
+                "http://localhost:3030/jsonstore/advanced/articles/list/", {
+                    signal: abortController.signal
+                }
             );
             const result = await response.json();
             setArticles(result);
         })();
+
+        return () => {
+            abortController.abort();
+        }
+
     }, []);
 
     return (
